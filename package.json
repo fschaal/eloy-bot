@@ -1,0 +1,25 @@
+{
+  "name": "eloy-bot-home",
+  "version": "1.0.0",
+  "description": "Eloy is a slackbot AI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fschaal/eloy-bot-home.git"
+  },
+  "author": "Florian Schaal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fschaal/eloy-bot-home/issues"
+  },
+  "homepage": "https://github.com/fschaal/eloy-bot-home#readme",
+  "dependencies": {
+    "botkit": "0.0.5",
+    "request": "^2.69.0",
+    "witbot": "^2.0.0"
+  }
+}
