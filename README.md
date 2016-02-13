@@ -1,5 +1,5 @@
 # Eloy
-Eloy is a bot that do home automation and assist you with a range of tasks.
+Eloy is a slack-bot that can do home automation and assist you with a range of tasks.
 
 ### features:
   - Get weather information
