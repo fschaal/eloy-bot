@@ -1,4 +1,4 @@
-# eloy-bot-home
+# Eloy
 Slackbot for home automation / assistance
 
 #Installation:
