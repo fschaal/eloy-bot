@@ -1,5 +1,9 @@
-# ${1:Project Name}
-TODO: Write a project description
+# Eloy
+Eloy is a bot that do home automation and assist you with a range of tasks.
+
+### features:
+  - Get weather information
+  - Search movies on CouchPotato
 ## Installation
 TODO: Describe the installation process
 ## Usage
