@@ -1,9 +1,15 @@
 var Botkit = require('botkit')
 var Witbot = require('witbot')
+var CouchPotato = require('./')
 
 var slackToken = process.env.SLACK_TOKEN
 var witToken = process.env.WIT_TOKEN
 var openWeatherApiKey = process.env.OPENWEATHER_TOKEN
+
+//CouchPotato
+var couchPotatoKey = process.env.COUCHPOTATO_TOKEN
+var couchPotatoUrl = process.env.COUCHPOTATO_URL
+
 
 var controller = Botkit.slackbot({
   debug: false
@@ -28,6 +34,8 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
     bot.reply(message, 'Hello to you as well!')
   })
 
+
+  //Weather
   var weather = require('./weather')(openWeatherApiKey)
 
   wit.hears('weather', 0.5, function(bot, message, outcome) {
@@ -46,5 +54,29 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
       }
       bot.reply(message, msg)
     })
+  })
+
+
+  //CouchPotato movie search
+  var couchPotato = require('./couchPotato')(couchPotatoUrl, couchPotatoKey)
+
+  wit.hears('couchpotato_movie_search', 0.5, function(bot, message, outcome) {
+    console.log(outcome.entities.search_query)
+    if (!outcome.entities.search_query || outcome.entities.search_query.length === 0) {
+      bot.reply(message, 'I\'d love to search for a movie but which one?:movie_camera:')
+      return
+    }
+    var searchQuery = outcome.entities.search_query[0].value
+
+    couchPotato.SearchMovie(searchQuery, function(error, msg) {
+      if (error) {
+        console.error(error)
+        bot.reply(message, 'uh oh, there was a problem searching for this movie:frowning:')
+        return
+      }
+
+      bot.reply(message, msg)
+    })
+
   })
 })
