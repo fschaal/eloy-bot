@@ -79,4 +79,31 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
     })
 
   })
+
+  wit.hears('couchpotato_logs', 0.5, function(bot, message, outcome) {
+    console.log(outcome.entities.lines)
+    console.log(outcome.entities.log_type)
+
+    if (!outcome.entities.lines && !outcome.entities.log_type) {
+      bot.reply(message, 'Im sorry, but I dont understand which logs I should show you.\nTry something like this: `Show me the last 30 errors from couchPotato`')
+      return
+    }
+    if (outcome.entities.lines) {
+      var lines = outcome.entities.lines[0].value
+    }
+    if (outcome.entities.log_type) {
+      var log_type = outcome.entities.log_type[0].value
+    }
+
+
+    couchPotato.ShowLogs(lines, log_type, function(error, msg) {
+      if (error) {
+        console.log(error)
+        bot.reply(message, 'uh oh, there was a problem while gathering all the log files you requested.:frowning:')
+        return
+      }
+      bot.reply(message, msg)
+    })
+
+  })
 })
