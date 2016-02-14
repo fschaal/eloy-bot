@@ -1,11 +1,17 @@
 # Eloy
 Eloy is a slack-bot that can do home automation and assist you with a range of tasks.
 
-### features:
+## Features
 
-####Weather
+###Weather
   - Get weather information
-  - Search movies on CouchPotato
+    `Whats the weather like in Spain?` / `What is the current temperature in Amsterdam?`
+
+###CouchPotato
+  - Search movies
+    `Find me a movie called Deadpool` / `Do you know any batman movies?`
+  - Get logs 
+    `Show me the last error on couchpotato` / `Show me the last 10 logs on cp`
 
 ## Installation
 TODO: Describe the installation process
