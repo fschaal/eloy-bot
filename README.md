@@ -34,17 +34,6 @@ TODO: Write usage instructions
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
-## Credits
-
-### witbot
-https://github.com/BeepBoopHQ/witbot
-
-### botkit
-https://github.com/howdyai/botkit
-
-### moment
-https://github.com/moment/moment/
-
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
 
