@@ -1,4 +1,6 @@
 # Eloy
+[![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
+
 Eloy is a slack-bot that can do home automation and assist you with a range of tasks.
 
 ## Features
@@ -12,6 +14,14 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
     `Find me a movie called Deadpool` / `Do you know any batman movies?`
   - Get logs 
     `Show me the last error on couchpotato` / `Show me the last 10 logs on cp`
+
+###Date/Time
+  - Current date
+    `What's today's date?` / `what date is it today?`
+  - Current time
+    `what time is it right now?` / `what time is it?`
+  - Day of the week
+    `What day are we on?` / `What day of the week is it?`
 
 ## Installation
 TODO: Describe the installation process
@@ -32,7 +42,11 @@ https://github.com/BeepBoopHQ/witbot
 ### botkit
 https://github.com/howdyai/botkit
 
-## License
-© 2016 Florian Schaal
+### moment
+https://github.com/moment/moment/
 
-This repository is licensed under the MIT license. See LICENSE for details.
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
+
+[travis-url]: https://travis-ci.org/fschaal/eloy-bot
+[travis-image]: https://travis-ci.org/fschaal/eloy-bot.svg?branch=master
