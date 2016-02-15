@@ -1,6 +1,6 @@
 var Botkit = require('botkit')
 var Witbot = require('witbot')
-var CouchPotato = require('./')
+var Moment = require('moment')
 
 var slackToken = process.env.SLACK_TOKEN
 var witToken = process.env.WIT_TOKEN
@@ -21,7 +21,7 @@ controller.spawn({
   if (err) {
     throw new Error('Error connecting to slack: ', err)
   }
-  console.log('Connected to slack')
+  console.log(Moment().format('MMMM Do YYYY, h:mm:ss ') + ' Connected to slack')
 })
 
 var witbot = Witbot(witToken)
@@ -34,6 +34,22 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
     bot.reply(message, 'Hello to you as well!')
   })
 
+  //moment
+  wit.hears('current_time',0.5,function (bot,message,outcome) {
+    bot.reply(message,'The current time is *' + Moment().format('h:mm:ss') + '*:watch:')
+  })
+
+  wit.hears('current_date',0.5,function (bot,message,outcome) {
+    bot.reply(message,'Today\'s date is *' + Moment().format('MMMM Do YYYY') + '*:spiral_calendar_pad:')
+  })
+
+  wit.hears('current_datetime',0.5,function (bot,message,outcome) {
+    bot.reply(message,'Today\'s date is *' + Moment().format('MMMM Do YYYY') +'*:spiral_calendar_pad:' + ' and the time is *' + Moment().format('h:mm:ss') + '*:watch:')
+  })
+
+  wit.hears('current_dayofweek',0.5,function (bot,message,outcome) {
+    bot.reply(message,'Today is ' + Moment().format('dddd') + ':spiral_calendar_pad:')
+  })
 
   //Weather
   var weather = require('./weather')(openWeatherApiKey)
