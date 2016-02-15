@@ -1,4 +1,6 @@
 # Eloy
+[![MIT License][license-image]][license-url]
+
 Eloy is a slack-bot that can do home automation and assist you with a range of tasks.
 
 ## Features
@@ -43,7 +45,5 @@ https://github.com/howdyai/botkit
 ### moment
 https://github.com/moment/moment/
 
-## License
-© 2016 Florian Schaal
-
-This repository is licensed under the MIT license. See LICENSE for details.
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
