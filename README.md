@@ -32,7 +32,7 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 6.  Set environment variable (API-Key, url, ect) for the modules you would like to use. 
     Note: SLACK_TOKEN is required for the bot to start and the WIT_TOKEN is required in order to process any sentences.
 7.  `npm start`
-8.  Talk to Eloy on Slack :) Eloy will by triggered by mention or direct-message.
+8.  Talk to Eloy on Slack :) Eloy will be triggered by mention or direct-message.
 
 ## Contributing
 1. Fork it!
