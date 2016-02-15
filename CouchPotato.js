@@ -12,6 +12,7 @@ function CouchPotato(url, token) {
 
   self.SearchMovie = function(queryString, fn) {
     var url = self.url + 'api/' + self.token + '/' + 'search?q=' + queryString
+    fn(null,'Ok, I will come back to you when I found movies matching that title.')
     console.log(url)
     request({
       url: url,
@@ -32,25 +33,25 @@ function CouchPotato(url, token) {
       var resultCount = data.movies.length
       var foundMovies = ''
       for (var i = 0; i < data.movies.length; i++) {
-        foundMovies = foundMovies + os.EOL + '•' + data.movies[i].original_title + '(' + data.movies[i].year + ')'
+        foundMovies = foundMovies + os.EOL + '•*' + data.movies[i].original_title + '(' + data.movies[i].year + ')*'
       }
-      var msg = 'I found ' + resultCount + ' movie(s) that match your query.' + '*' + foundMovies + '*'
+      var msg = 'I found ' + resultCount + ' movie(s) that match your query.' + foundMovies
       fn(null, msg)
       return
     })
   }
-  self.ShowLogs = function(lines, type_log, fn) {
+  self.ShowLogs = function(lines, log_type, fn) {
     var url = self.url + 'api/' + self.token + '/' + 'logging.partial?'
     if (lines) {
       url = url + 'lines=' + lines
     }
 
-    if (lines && type_log) {
+    if (lines && log_type) {
       url = url + '&'
     }
 
-    if (type_log) {
-      url = url + 'type=' + type_log
+    if (log_type) {
+      url = url + 'type=' + log_type
     }
     console.log(url)
     request({
