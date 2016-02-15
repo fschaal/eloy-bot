@@ -24,9 +24,13 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
     `What day are we on?` / `What day of the week is it?`
 
 ## Installation
-TODO: Describe the installation process
-## Usage
-TODO: Write usage instructions
+1.  `cd`To desired install location.
+2.  `git clone https://github.com/fschaal/eloy-bot.git`
+3.  `npm install`
+4.  Set environment variable (token, url, ect) for the modules you would like to use.
+5.  `npm start`
+6.  Talk to Eloy on Slack :) Eloy will by triggered by mention or direct-message.
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
