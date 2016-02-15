@@ -13,6 +13,14 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
   - Get logs 
     `Show me the last error on couchpotato` / `Show me the last 10 logs on cp`
 
+###Date/Time
+  - Current date
+    `What's today's date?` / `what date is it today?`
+  - Current time
+    `what time is it right now?` / `what time is it?`
+  - Day of the week
+    `What day are we on?` / `What day of the week is it?`
+
 ## Installation
 TODO: Describe the installation process
 ## Usage
@@ -31,6 +39,9 @@ https://github.com/BeepBoopHQ/witbot
 
 ### botkit
 https://github.com/howdyai/botkit
+
+### moment
+https://github.com/moment/moment/
 
 ## License
 © 2016 Florian Schaal
