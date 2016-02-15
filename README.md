@@ -27,9 +27,11 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 1.  `cd`To desired install location.
 2.  `git clone https://github.com/fschaal/eloy-bot.git`
 3.  `npm install`
-4.  Set environment variable (token, url, ect) for the modules you would like to use.
-5.  `npm start`
-6.  Talk to Eloy on Slack :) Eloy will by triggered by mention or direct-message.
+4.  If not already, create a bot on slack `https://{yourteam}.slack.com/apps/manage/custom-integrations`
+5.  Set environment variable (API-Key, url, ect) for the modules you would like to use. 
+    Note: SLACK_TOKEN is required for the bot to start. Your bots API-Key can be found on the bots config page.
+6.  `npm start`
+7.  Talk to Eloy on Slack :) Eloy will by triggered by mention or direct-message.
 
 ## Contributing
 1. Fork it!
