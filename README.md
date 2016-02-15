@@ -1,5 +1,5 @@
 # Eloy
-[![MIT License][license-image]][license-url]
+[![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 
 Eloy is a slack-bot that can do home automation and assist you with a range of tasks.
 
@@ -47,3 +47,6 @@ https://github.com/moment/moment/
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
+
+[travis-url]: https://travis-ci.org/fschaal/eloy-bot
+[travis-image]: https://travis-ci.org/fschaal/eloy-bot.svg?branch=master
