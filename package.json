@@ -19,6 +19,7 @@
   "dependencies": {
     "botkit": "0.0.5",
     "moment": "^2.11.2",
+    "pretty-bytes": "^3.0.1",
     "request": "^2.69.0",
     "witbot": "^2.0.0"
   }
