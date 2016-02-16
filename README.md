@@ -17,14 +17,14 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 
 ###Date/Time
   - Current date
-    `What's today's date?` / `what date is it today?`
+    `What's today's date?` / `What date is it today?`
   - Current time
-    `what time is it right now?` / `what time is it?`
+    `What time is it right now?` / `What time is it?`
   - Day of the week
     `What day are we on?` / `What day of the week is it?`
 
 ## Installation
-1.  `cd`to desired install location.
+1.  `cd` to desired install location.
 2.  `git clone https://github.com/fschaal/eloy-bot.git`
 3.  `npm install`
 4.  If not already, create a bot on slack `https://{yourteam}.slack.com/apps/manage/custom-integrations`
