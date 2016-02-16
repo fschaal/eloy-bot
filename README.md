@@ -9,12 +9,6 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
   - Get weather information
     `Whats the weather like in Spain?` / `What is the current temperature in Amsterdam?`
 
-###CouchPotato
-  - Search movies
-    `Find me a movie called Deadpool` / `Do you know any batman movies?`
-  - Get logs 
-    `Show me the last error on couchpotato` / `Show me the last 10 logs on cp`
-
 ###Date/Time
   - Current date
     `What's today's date?` / `What date is it today?`
@@ -22,6 +16,16 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
     `What time is it right now?` / `What time is it?`
   - Day of the week
     `What day are we on?` / `What day of the week is it?`
+
+###CouchPotato
+  - Search movies
+    `Find me a movie called Deadpool` / `Do you know any batman movies?`
+  - Get logs 
+    `Show me the last error on couchpotato` / `Show me the last 10 logs on cp`
+
+###SABnzb
+  - Get queue
+    `Show me my sabnzb queue.` / `How are my downloads doing on sabnzb?`
 
 ## Installation
 1.  `cd` to desired install location.
