@@ -1,6 +1,5 @@
 var request = require('request')
 var os = require('os')
-var prettyBytes = require('pretty-bytes')
 var moment = require('moment')
 
 module.exports = function(url,token) {
@@ -18,7 +17,8 @@ function SabNzb(url,token) {
     console.log(url)
     request({
       url: url,
-      json: true
+      json: true,
+      rejectUnauthorized: false
     }, function(error, response, data) {
       if (error) {
         return fn(error)
@@ -32,8 +32,12 @@ function SabNzb(url,token) {
         fn(null, msg)
         return
       }
-      var msg = 'You have currently *' + data.jobs.length + '* in your queue with a total filesize of *' + prettyBytes(data.mbleft) + '*.'
+      var msg = 'You have currently *' + data.jobs.length + '* download(s) in your queue with a total filesize of *' + Math.round(data.mbleft) + '* currently download at *' + data.kbpersec + ' kb/s*'
       fn(null, msg)
+      for (var i = 0; i < data.jobs.length; i++) {
+        var msg = '•' +  data.jobs[i].filename + ' *' + Math.round(data.jobs[i].mbleft) + '/' + Math.round(data.jobs[i].mb) + '*'
+        fn(null,msg)
+      }
       if (data.paused === true) {
         var msg = 'I can not tell when your queue will be completed because your downloads are *paused*.'
         fn(null,msg)
@@ -41,6 +45,7 @@ function SabNzb(url,token) {
 
         var completionDateTime = moment().add(data.timeleft)
         var msg = 'Your queue will be completed ' + completionDateTime
+        console.log(msg)
       }
 
       return

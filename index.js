@@ -2,13 +2,20 @@ var Botkit = require('botkit')
 var Witbot = require('witbot')
 var Moment = require('moment')
 
+//Core
 var slackToken = process.env.SLACK_TOKEN
 var witToken = process.env.WIT_TOKEN
+
+//Weather
 var openWeatherApiKey = process.env.OPENWEATHER_TOKEN
 
 //CouchPotato
 var couchPotatoKey = process.env.COUCHPOTATO_TOKEN
 var couchPotatoUrl = process.env.COUCHPOTATO_URL
+
+//SabNzb
+var sabNzbKey = process.env.SABNZB_TOKEN
+var sabNzbUrl = process.env.SABNZB_URL
 
 
 var controller = Botkit.slackbot({
@@ -73,7 +80,7 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   })
 
 
-  //CouchPotato movie search
+  //CouchPotato
   var couchPotato = require('./couchPotato')(couchPotatoUrl, couchPotatoKey)
 
   wit.hears('couchpotato_movie_search', 0.5, function(bot, message, outcome) {
@@ -122,4 +129,24 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
     })
 
   })
+
+  //SabNzb
+  var sabNzb = require('./SABnzb')(sabNzbUrl,sabNzbKey)
+
+  wit.hears('sabnzb_showqueue',0.5,function (bot,message,outcome) {
+    console.log(outcome)
+    sabNzb.GetSimpleQueue(function (error,msg) {
+      if(error)
+      {
+        console.log(error)
+        bot.reply(message,'uh oh, something went wrong here..I could not get the queue.')
+        return
+      }
+      bot.reply(message,msg)
+      return
+    })
+
+  })
+
+
 })
