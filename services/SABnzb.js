@@ -32,10 +32,10 @@ function SabNzb(url,token) {
         fn(null, msg)
         return
       }
-      var msg = 'You have currently *' + data.jobs.length + '* download(s) in your queue with a total filesize of *' + Math.round(data.mbleft) + '* currently download at *' + data.kbpersec + ' kb/s*'
+      var msg = 'You have currently *' + data.jobs.length + '* download(s) in your queue with a total filesize of *' + Math.round(data.mbleft) + 'MB' + '* currently download at *' + data.kbpersec + ' kb/s*'
       fn(null, msg)
       for (var i = 0; i < data.jobs.length; i++) {
-        var msg = '•' +  data.jobs[i].filename + ' *' + Math.round(data.jobs[i].mbleft) + '/' + Math.round(data.jobs[i].mb) + '*'
+        var msg = '•' +  data.jobs[i].filename + ' *' + (Math.round(data.jobs[i].mb) - Math.round(data.jobs[i].mbleft)) + '/' + Math.round(data.jobs[i].mb) + 'MB' + '*'
         fn(null,msg)
       }
       if (data.paused === true) {

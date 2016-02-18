@@ -59,7 +59,7 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   })
 
   //Weather
-  var weather = require('./weather')(openWeatherApiKey)
+  var weather = require('./services/weather')(openWeatherApiKey)
 
   wit.hears('weather', 0.5, function(bot, message, outcome) {
     console.log(outcome.entities.location)
@@ -81,7 +81,7 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
 
 
   //CouchPotato
-  var couchPotato = require('./couchPotato')(couchPotatoUrl, couchPotatoKey)
+  var couchPotato = require('./services/couchPotato')(couchPotatoUrl, couchPotatoKey)
 
   wit.hears('couchpotato_movie_search', 0.5, function(bot, message, outcome) {
     console.log(outcome.entities.search_query)
@@ -131,7 +131,7 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   })
 
   //SabNzb
-  var sabNzb = require('./SABnzb')(sabNzbUrl,sabNzbKey)
+  var sabNzb = require('./services/SABnzb')(sabNzbUrl,sabNzbKey)
 
   wit.hears('sabnzb_showqueue',0.5,function (bot,message,outcome) {
     console.log(outcome)
@@ -146,6 +146,10 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
       return
     })
 
+  })
+
+  wit.otherwise(function() {
+    bot.reply(message,'I\'m sorry, I did not understand..:thinking_face: I\'m still learning how to interact with humans properly.')
   })
 
 
