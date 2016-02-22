@@ -1,6 +1,8 @@
 var Botkit = require('botkit')
-var Witbot = require('witbot')
+var Witbot = require('./lib/witbot')
 var Moment = require('moment')
+
+var Userhelper = require('./lib/UserHelper')()
 
 //Core
 var slackToken = process.env.SLACK_TOKEN
@@ -17,7 +19,13 @@ var couchPotatoUrl = process.env.COUCHPOTATO_URL
 var sabNzbKey = process.env.SABNZB_TOKEN
 var sabNzbUrl = process.env.SABNZB_URL
 
+//localStorage
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage
+  localStorage = new LocalStorage('./storage')
+}
 
+//Setting up bot
 var controller = Botkit.slackbot({
   debug: false
 })
@@ -32,30 +40,91 @@ controller.spawn({
 })
 
 var witbot = Witbot(witToken)
-
 controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   var wit = witbot.process(message.text, bot, message)
 
 
   wit.hears('greetings', 0.5, function(bot, message, outcome) {
-    bot.reply(message, 'Hello to you as well!')
+    if(!localStorage.getItem('user'))
+    {
+      console.log('** No user info found. Starting introduction!')
+      bot.reply(message,'Hi there! I don\'t think we\'ve met. My name is Eloy what is your name?')
+      witbot.setContext('introduction_ask_username')
+      localStorage.setItem('user',JSON.stringify({name: '',birthday: ''}))
+    }else {
+      bot.reply(message, 'Hi ' + JSON.parse(localStorage.getItem('user')).name)
+    }
+    return
+  })
+
+  //Setting username
+  wit.hears('introduction_username',0.5,function(bot,message,outcome) {
+      var user = JSON.parse(localStorage.getItem('user'))
+      if (!outcome.entities.name_person || outcome.entities.name_person === 0) {
+          bot.reply(message,'oh,something strange happend. Could you tell me your name agian?')
+          return
+      }
+      user.name = outcome.entities.name_person[0].value
+      console.log('** Setting username to ' + user.name)
+      localStorage.setItem('user',JSON.stringify(user))
+      bot.reply(message,'Nice to meet you ' + user.name + '. ' + 'When were you born?' )
+      witbot.setContext('introduction_ask_birthday')
+      return
+  })
+
+  //Setting birthday
+  wit.hears('introduction_birthday',0.5,function (bot,message,outcome) {
+      var user = JSON.parse(localStorage.getItem('user'))
+      if(!outcome.entities.datetime || outcome.entities.datetime === 0)
+      {
+        bot.reply(message,'hhhm:thinking_face: Lets try that again.')
+        return
+      }
+      var birthday = outcome.entities.datetime[0].value.split('T')[0]
+      console.log('** User was born on ' + birthday)
+      user.birthday = birthday
+      localStorage.setItem('user',JSON.stringify(user))
+      Userhelper.getUserAge(birthday,function(age) {
+        console.log('** User is ' + age + ' years old.')
+        bot.reply(message,'Great so that means you are ' + age + 'years old! Thank you for the information:+1:')
+        witbot.setContext(null)
+      })
+
+  })
+
+  //Get user birthday
+  wit.hears('user_asks_own_birthday',0.5,function (bot,message,outcome) {
+    var user = JSON.parse(localStorage.getItem('user'))
+    if(!user)
+    {
+      bot.reply(message,'I\'m sorry, I dont have any information about you. \nHow rude of me.:sweat_smile: \nLet me introduce myself.')
+      bot.reply(message,'My name is Eloy. I\'m an AI that help you with your daily life. \nWhat is your name?')
+      witbot.setContext('introduction_ask_username')
+      return
+    }
+    bot.reply(message,'You should know this better then me!:neutral_face: Anyway as far as I know you where born ' + user.birthday + ':nerd_face:')
+    return
   })
 
   //moment
-  wit.hears('current_time',0.5,function (bot,message,outcome) {
-    bot.reply(message,'The current time is *' + Moment().format('h:mm:ss') + '*:watch:')
+  wit.hears('current_time', 0.5, function(bot, message, outcome) {
+    bot.reply(message, 'The current time is *' + Moment().format('h:mm:ss') + '*:watch:')
+    return
   })
 
-  wit.hears('current_date',0.5,function (bot,message,outcome) {
-    bot.reply(message,'Today\'s date is *' + Moment().format('MMMM Do YYYY') + '*:spiral_calendar_pad:')
+  wit.hears('current_date', 0.5, function(bot, message, outcome) {
+    bot.reply(message, 'Today\'s date is *' + Moment().format('MMMM Do YYYY') + '*:spiral_calendar_pad:')
+    return
   })
 
-  wit.hears('current_datetime',0.5,function (bot,message,outcome) {
-    bot.reply(message,'Today\'s date is *' + Moment().format('MMMM Do YYYY') +'*:spiral_calendar_pad:' + ' and the time is *' + Moment().format('h:mm:ss') + '*:watch:')
+  wit.hears('current_datetime', 0.5, function(bot, message, outcome) {
+    bot.reply(message, 'Today\'s date is *' + Moment().format('MMMM Do YYYY') + '*:spiral_calendar_pad:' + ' and the time is *' + Moment().format('h:mm:ss') + '*:watch:')
+    return
   })
 
-  wit.hears('current_dayofweek',0.5,function (bot,message,outcome) {
-    bot.reply(message,'Today is ' + Moment().format('dddd') + ':spiral_calendar_pad:')
+  wit.hears('current_dayofweek', 0.5, function(bot, message, outcome) {
+    bot.reply(message, 'Today is ' + Moment().format('dddd') + ':spiral_calendar_pad:')
+    return
   })
 
   //Weather
@@ -131,25 +200,24 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   })
 
   //SabNzb
-  var sabNzb = require('./services/SABnzb')(sabNzbUrl,sabNzbKey)
+  var sabNzb = require('./services/SABnzb')(sabNzbUrl, sabNzbKey)
 
-  wit.hears('sabnzb_showqueue',0.5,function (bot,message,outcome) {
+  wit.hears('sabnzb_showqueue', 0.5, function(bot, message, outcome) {
     console.log(outcome)
-    sabNzb.GetSimpleQueue(function (error,msg) {
-      if(error)
-      {
+    sabNzb.GetSimpleQueue(function(error, msg) {
+      if (error) {
         console.log(error)
-        bot.reply(message,'uh oh, something went wrong here..I could not get the queue.')
+        bot.reply(message, 'uh oh, something went wrong here..I could not get the queue.')
         return
       }
-      bot.reply(message,msg)
+      bot.reply(message, msg)
       return
     })
 
   })
 
   wit.otherwise(function() {
-    bot.reply(message,'I\'m sorry, I did not understand..:thinking_face: I\'m still learning how to interact with humans properly.')
+    bot.reply(message, 'I\'m sorry, I did not understand..:thinking_face: I\'m still learning how to interact with humans properly.')
   })
 
 

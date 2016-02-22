@@ -1,6 +1,6 @@
 {
   "name": "eloy-bot",
-  "version": "1.0.2",
+  "version": "0.2.0",
   "description": "Eloy is a slackbot AI",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,8 @@
   "dependencies": {
     "botkit": "0.0.5",
     "moment": "^2.11.2",
+    "node-localstorage": "^1.1.2",
+    "node-wit": "^2.0.0",
     "request": "^2.69.0",
     "witbot": "^2.0.0"
   }
