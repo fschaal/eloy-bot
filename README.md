@@ -4,7 +4,7 @@
 Eloy is a slack-bot that can do home automation and assist you with a range of tasks.
 
 ## Features
-
+![alt tag](http://i.imgur.com/y4Akphj.gif)
 ###Weather
   - Get weather information
     `Whats the weather like in Spain?` / `What is the current temperature in Amsterdam?`
