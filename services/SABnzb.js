@@ -2,11 +2,11 @@ var request = require('request')
 var os = require('os')
 var moment = require('moment')
 
-module.exports = function(url,token) {
-  return new SabNzb(url,token)
+module.exports = function(url, token) {
+  return new SabNzb(url, token)
 }
 
-function SabNzb(url,token) {
+function SabNzb(url, token) {
   var self = this
   self.url = url
   self.token = token
@@ -35,20 +35,21 @@ function SabNzb(url,token) {
       var msg = 'You have currently *' + data.jobs.length + '* download(s) in your queue with a total filesize of *' + Math.round(data.mbleft) + 'MB' + '* currently download at *' + data.kbpersec + ' kb/s*'
       fn(null, msg)
       for (var i = 0; i < data.jobs.length; i++) {
-        var msg = '•' +  data.jobs[i].filename + ' *' + (Math.round(data.jobs[i].mb) - Math.round(data.jobs[i].mbleft)) + '/' + Math.round(data.jobs[i].mb) + 'MB' + '*'
-        fn(null,msg)
+        var msg = '•' + data.jobs[i].filename + ' *' + (Math.round(data.jobs[i].mb) - Math.round(data.jobs[i].mbleft)) + '/' + Math.round(data.jobs[i].mb) + 'MB' + '*'
+        fn(null, msg)
       }
       if (data.paused === true) {
         var msg = 'I can not tell when your queue will be completed because your downloads are *paused*.'
-        fn(null,msg)
-      }else {
+        return fn(null, msg)
+      } else {
 
         var completionDateTime = moment().add(data.timeleft)
         var msg = 'Your queue will be completed ' + completionDateTime
         console.log(msg)
+        return fn(null, msg)
       }
-
       return
+
     })
   }
 

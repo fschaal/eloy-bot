@@ -1,6 +1,6 @@
 {
   "name": "eloy-bot",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Eloy is a slackbot AI",
   "main": "index.js",
   "scripts": {

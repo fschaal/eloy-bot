@@ -8,7 +8,9 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 ###Weather
   - Get weather information
     `Whats the weather like in Spain?` / `What is the current temperature in Amsterdam?`
-
+###Advice
+  - Let Eloy give you some advice (random or on a specific subject)
+    `Could you give me some advice` / `Could you give me some advice about spiders?`
 ###Date/Time
   - Current date
     `What's today's date?` / `What date is it today?`
@@ -20,7 +22,7 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 ###CouchPotato
   - Search movies
     `Find me a movie called Deadpool` / `Do you know any batman movies?`
-  - Get logs 
+  - Get logs
     `Show me the last error on couchpotato` / `Show me the last 10 logs on cp`
 
 ###SABnzb
@@ -33,7 +35,7 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 3.  `npm install`
 4.  If not already, create a bot on slack `https://{yourteam}.slack.com/apps/manage/custom-integrations`
 5.  Fork the Eloy wit.ai repository `https://wit.ai/fschaal/eloy-bot`
-6.  Set environment variable (API-Key, url, ect) for the modules you would like to use. 
+6.  Set environment variable (API-Key, url, ect) for the modules you would like to use.
     Note: SLACK_TOKEN is required for the bot to start and the WIT_TOKEN is required in order to process any sentences.
 7.  `npm start`
 8.  Talk to Eloy on Slack :) Eloy will be triggered by mention or direct-message.

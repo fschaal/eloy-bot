@@ -1,6 +1,10 @@
 var Botkit = require('botkit')
 var Witbot = require('./lib/witbot')
 var Moment = require('moment')
+var sabNzb = require('./services/SABnzb')(sabNzbUrl, sabNzbKey)
+var weather = require('./services/weather')(openWeatherApiKey)
+var couchPotato = require('./services/couchPotato')(couchPotatoUrl, couchPotatoKey)
+var advice = require('./services/Advice')()
 
 var Userhelper = require('./lib/UserHelper')()
 
@@ -128,8 +132,6 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   })
 
   //Weather
-  var weather = require('./services/weather')(openWeatherApiKey)
-
   wit.hears('weather', 0.5, function(bot, message, outcome) {
     console.log(outcome.entities.location)
     if (!outcome.entities.location || outcome.entities.location.length === 0) {
@@ -150,8 +152,6 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
 
 
   //CouchPotato
-  var couchPotato = require('./services/couchPotato')(couchPotatoUrl, couchPotatoKey)
-
   wit.hears('couchpotato_movie_search', 0.5, function(bot, message, outcome) {
     console.log(outcome.entities.search_query)
     if (!outcome.entities.search_query || outcome.entities.search_query.length === 0) {
@@ -200,8 +200,6 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
   })
 
   //SabNzb
-  var sabNzb = require('./services/SABnzb')(sabNzbUrl, sabNzbKey)
-
   wit.hears('sabnzb_showqueue', 0.5, function(bot, message, outcome) {
     console.log(outcome)
     sabNzb.GetSimpleQueue(function(error, msg) {
@@ -215,6 +213,28 @@ controller.hears('.*', 'direct_message,direct_mention', function(bot, message) {
     })
 
   })
+
+  wit.hears('user_asks_advice',0.5, function(bot,message,outcome){
+    console.log(outcome)
+
+    if(outcome.entities.advice_subject)
+    {
+      var subject = outcome.entities.advice_subject[0].value
+      console.log('** Subject given by user: ' + outcome.entities.advice_subject[0].value)
+    }
+
+    advice.GetAdvice(subject, function(error,msg) {
+      if(error)
+      {
+        console.log(error)
+        bot.reply(message,'oooh, something went wrong:thinking_face:')
+        return
+      }
+      bot.reply(message,msg)
+
+    })
+  })
+
 
   wit.otherwise(function() {
     bot.reply(message, 'I\'m sorry, I did not understand..:thinking_face: I\'m still learning how to interact with humans properly.')

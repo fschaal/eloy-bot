@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [0.2.0] - 2016-02-23
+### Added
+- Eloy can now give you advice
+
+### Changed
+- minor fixes
+
 ## [0.2.0] - 2016-02-23
 ### Added
 - Local storage for storing user data
