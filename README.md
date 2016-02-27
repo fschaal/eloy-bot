@@ -8,9 +8,11 @@ Eloy is a slack-bot that can do home automation and assist you with a range of t
 ###Weather
   - Get weather information
     `Whats the weather like in Spain?` / `What is the current temperature in Amsterdam?`
+
 ###Advice
   - Let Eloy give you some advice (random or on a specific subject)
     `Could you give me some advice` / `Could you give me some advice about spiders?`
+
 ###Date/Time
   - Current date
     `What's today's date?` / `What date is it today?`
